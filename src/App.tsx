@@ -6,6 +6,9 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Navbar from "./components/layout/Navbar";
 import Home from "./pages/Home";
 import Products from "./pages/Products";
+import AddProduct from "./pages/AddProduct";
+import MyListings from "./pages/MyListings";
+import Cart from "./pages/Cart";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -22,7 +25,9 @@ const App = () => (
             <Routes>
               <Route path="/" element={<Home />} />
               <Route path="/products" element={<Products />} />
-              {/* TODO: Add remaining routes */}
+              <Route path="/add-product" element={<AddProduct />} />
+              <Route path="/my-listings" element={<MyListings />} />
+              <Route path="/cart" element={<Cart />} />
               <Route path="*" element={<NotFound />} />
             </Routes>
           </main>
