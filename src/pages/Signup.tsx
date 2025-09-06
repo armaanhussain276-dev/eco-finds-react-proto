@@ -6,7 +6,6 @@ import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle }
 import { useNavigate } from "react-router-dom";
 import { Leaf, Mail, Lock, User } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
-import Navbar from "@/components/layout/Navbar";
 
 const Signup = () => {
   const [formData, setFormData] = useState({
@@ -53,7 +52,6 @@ const Signup = () => {
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-earth-beige to-eco-green-light">
-      <Navbar />
       <div className="flex items-center justify-center px-4 py-12">
         <Card className="w-full max-w-md shadow-lg">
           <CardHeader className="space-y-1 text-center">
