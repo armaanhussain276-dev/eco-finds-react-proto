@@ -1,8 +1,12 @@
 import { useLocation } from "react-router-dom";
 import { useEffect } from "react";
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
+import { Button } from "@/components/ui/button";
+import { User, LogIn, UserPlus } from "lucide-react";
 
 const NotFound = () => {
   const location = useLocation();
+  const isProfileRoute = location.pathname === '/profile';
 
   useEffect(() => {
     console.error(
@@ -10,6 +14,43 @@ const NotFound = () => {
       location.pathname
     );
   }, [location.pathname]);
+
+  if (isProfileRoute) {
+    return (
+      <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-green-50 to-blue-50 p-4">
+        <Card className="w-full max-w-md shadow-lg border-green-200">
+          <CardHeader className="text-center pb-4">
+            <div className="mx-auto w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mb-4">
+              <User className="w-8 h-8 text-green-600" />
+            </div>
+            <CardTitle className="text-2xl font-bold text-gray-800">
+              Guest Mode
+            </CardTitle>
+            <CardDescription className="text-gray-600">
+              You are currently in guest mode. Please login or register to access your profile.
+            </CardDescription>
+          </CardHeader>
+          <CardContent className="space-y-3">
+            <Button 
+              className="w-full bg-green-600 hover:bg-green-700 text-white"
+              size="lg"
+            >
+              <LogIn className="w-4 h-4 mr-2" />
+              Login
+            </Button>
+            <Button 
+              variant="outline" 
+              className="w-full border-green-600 text-green-600 hover:bg-green-50"
+              size="lg"
+            >
+              <UserPlus className="w-4 h-4 mr-2" />
+              Register
+            </Button>
+          </CardContent>
+        </Card>
+      </div>
+    );
+  }
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-gray-100">
