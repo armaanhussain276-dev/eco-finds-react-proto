@@ -1,8 +1,9 @@
 import { useLocation } from "react-router-dom";
 import { useEffect } from "react";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
-import { Button } from "@/components/ui/button";
+import { Button } from "@/components/ui/enhanced-button";
 import { User, LogIn, UserPlus } from "lucide-react";
+import { Link } from "react-router-dom";
 
 const NotFound = () => {
   const location = useLocation();
@@ -31,21 +32,26 @@ const NotFound = () => {
             </CardDescription>
           </CardHeader>
           <CardContent className="space-y-3">
-            <Button 
-              className="w-full bg-green-600 hover:bg-green-700 text-white"
-              size="lg"
-            >
-              <LogIn className="w-4 h-4 mr-2" />
-              Login
-            </Button>
-            <Button 
-              variant="outline" 
-              className="w-full border-green-600 text-green-600 hover:bg-green-50"
-              size="lg"
-            >
-              <UserPlus className="w-4 h-4 mr-2" />
-              Register
-            </Button>
+            <Link to="/login">
+              <Button 
+                variant="eco"
+                size="lg"
+                className="w-full"
+              >
+                <LogIn className="w-4 h-4 mr-2" />
+                Login
+              </Button>
+            </Link>
+            <Link to="/signup">
+              <Button 
+                variant="ecoSecondary"
+                size="lg"
+                className="w-full"
+              >
+                <UserPlus className="w-4 h-4 mr-2" />
+                Register
+              </Button>
+            </Link>
           </CardContent>
         </Card>
       </div>
