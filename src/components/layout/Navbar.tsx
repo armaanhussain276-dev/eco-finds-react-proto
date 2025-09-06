@@ -1,5 +1,5 @@
 import { useState } from "react"
-import { Link, useLocation } from "react-router-dom"
+import { Link, useLocation, useNavigate } from "react-router-dom"
 import { Leaf, ShoppingCart, User, Menu, X } from "lucide-react"
 import { Button } from "@/components/ui/enhanced-button"
 import { Badge } from "@/components/ui/badge"
@@ -7,6 +7,7 @@ import { cn } from "@/lib/utils"
 import { useAuth } from "@/contexts/AuthContext"
 import { useCart } from "@/contexts/CartContext"
 import MiniCart from "@/components/cart/MiniCart"
+import { useToast } from "@/hooks/use-toast"
 
 const navItems = [
   { label: "Home", path: "/" },
@@ -22,12 +23,26 @@ export default function Navbar() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false)
   const [isMiniCartOpen, setIsMiniCartOpen] = useState(false)
   const location = useLocation()
+  const navigate = useNavigate()
+  const { toast } = useToast()
   const currentPath = location.pathname
   const { isLoggedIn, login, logout } = useAuth()
   const { getTotalItems } = useCart()
 
   const isActive = (path: string) => currentPath === path
 
+  const handleLogin = () => {
+    navigate('/login')
+  }
+
+  const handleLogout = () => {
+    logout()
+    toast({
+      title: "Logged Out",
+      description: "You have been successfully logged out."
+    })
+    navigate('/')
+  }
   return (
     <nav className="bg-background/95 backdrop-blur-sm border-b border-border sticky top-0 z-50">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -85,9 +100,14 @@ export default function Navbar() {
                 Logout
               </Button>
             ) : (
-              <Button variant="outline" size="sm" onClick={login}>
-                Login
-              </Button>
+              <div className="flex gap-2">
+                <Button variant="outline" size="sm" onClick={handleLogin}>
+                  Login
+                </Button>
+                <Button variant="outline" size="sm" onClick={() => navigate('/signup')}>
+                  Register
+                </Button>
+              </div>
             )}
           </div>
 
@@ -128,13 +148,18 @@ export default function Navbar() {
               ))}
               <div className="flex items-center space-x-3 px-3 py-2">
                 {isLoggedIn ? (
-                  <Button variant="outline" size="sm" className="w-full" onClick={logout}>
+                  <Button variant="outline" size="sm" className="w-full" onClick={handleLogout}>
                     Logout
                   </Button>
                 ) : (
-                  <Button variant="outline" size="sm" className="w-full" onClick={login}>
-                    Login
-                  </Button>
+                  <div className="flex flex-col gap-2 w-full">
+                    <Button variant="outline" size="sm" className="w-full" onClick={handleLogin}>
+                      Login
+                    </Button>
+                    <Button variant="outline" size="sm" className="w-full" onClick={() => navigate('/signup')}>
+                      Register
+                    </Button>
+                  </div>
                 )}
               </div>
             </div>

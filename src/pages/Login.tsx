@@ -6,6 +6,7 @@ import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle }
 import { useNavigate } from "react-router-dom";
 import { Leaf, Mail, Lock } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
+import { useAuth } from "@/contexts/AuthContext";
 
 const Login = () => {
   const [email, setEmail] = useState("");
@@ -13,6 +14,7 @@ const Login = () => {
   const [isLoading, setIsLoading] = useState(false);
   const navigate = useNavigate();
   const { toast } = useToast();
+  const { login } = useAuth();
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -21,9 +23,10 @@ const Login = () => {
     // Simulate API call
     setTimeout(() => {
       setIsLoading(false);
+      login(); // Update auth state
       toast({
         title: "Login Successful!",
-        description: "Welcome back to EcoMarket",
+        description: "Welcome back to EcoFinds",
       });
       navigate("/");
     }, 1000);
@@ -39,7 +42,7 @@ const Login = () => {
             </div>
             <CardTitle className="text-2xl font-bold">Welcome Back</CardTitle>
             <CardDescription>
-              Sign in to your EcoMarket account
+              Sign in to your EcoFinds account
             </CardDescription>
           </CardHeader>
           <form onSubmit={handleSubmit}>

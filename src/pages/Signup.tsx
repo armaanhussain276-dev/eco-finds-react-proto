@@ -44,7 +44,7 @@ const Signup = () => {
       setIsLoading(false);
       toast({
         title: "Account Created!",
-        description: "Welcome to EcoMarket. Please sign in.",
+        description: "Welcome to EcoFinds. Please sign in.",
       });
       navigate("/login");
     }, 1000);
