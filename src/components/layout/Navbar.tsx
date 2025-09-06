@@ -152,11 +152,11 @@ export default function Navbar() {
                     Logout
                   </Button>
                 ) : (
-                  <div className="flex flex-col gap-2 w-full">
+                  <div className="flex flex-col gap-3 w-full">
                     <Button variant="outline" size="sm" className="w-full" onClick={handleLogin}>
                       Login
                     </Button>
-                    <Button variant="outline" size="sm" className="w-full" onClick={() => navigate('/signup')}>
+                    <Button variant="eco" size="sm" className="w-full" onClick={() => navigate('/signup')}>
                       Register
                     </Button>
                   </div>

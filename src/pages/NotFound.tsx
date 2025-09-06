@@ -18,23 +18,23 @@ const NotFound = () => {
 
   if (isProfileRoute) {
     return (
-      <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-green-50 to-blue-50 p-4">
-        <Card className="w-full max-w-md shadow-lg border-green-200">
+      <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-background to-eco-sage/20 p-4">
+        <Card className="w-full max-w-md shadow-lg border-eco-green/20 eco-card">
           <CardHeader className="text-center pb-4">
-            <div className="mx-auto w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mb-4">
-              <User className="w-8 h-8 text-green-600" />
+            <div className="mx-auto w-16 h-16 bg-eco-light rounded-full flex items-center justify-center mb-4">
+              <User className="w-8 h-8 text-eco-green" />
             </div>
-            <CardTitle className="text-2xl font-bold text-gray-800">
+            <CardTitle className="text-2xl font-bold text-eco-forest">
               Guest Mode
             </CardTitle>
-            <CardDescription className="text-gray-600">
+            <CardDescription className="text-muted-foreground">
               You are currently in guest mode. Please login or register to access your profile.
             </CardDescription>
           </CardHeader>
-          <CardContent className="space-y-3">
+          <CardContent className="space-y-4">
             <Link to="/login">
               <Button 
-                variant="eco"
+                variant="outline"
                 size="lg"
                 className="w-full"
               >
@@ -44,7 +44,7 @@ const NotFound = () => {
             </Link>
             <Link to="/signup">
               <Button 
-                variant="ecoSecondary"
+                variant="eco"
                 size="lg"
                 className="w-full"
               >
