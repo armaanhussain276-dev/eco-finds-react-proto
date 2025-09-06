@@ -15,8 +15,7 @@ const navItems = [
   { label: "My Listings", path: "/my-listings" },
   { label: "Add Product", path: "/add-product" },
   { label: "Cart", path: "/cart" },
-  { label: "Purchases", path: "/purchases" },
-  { label: "Profile", path: "/profile" },
+  { label: "Purchases", path: "/purchases" }
 ]
 
 export default function Navbar() {
@@ -33,6 +32,14 @@ export default function Navbar() {
 
   const handleLogin = () => {
     navigate('/login')
+  }
+
+  const handleProfileClick = () => {
+    if (isLoggedIn) {
+      navigate('/profile')
+    } else {
+      navigate('/login')
+    }
   }
 
   const handleLogout = () => {
@@ -90,11 +97,17 @@ export default function Navbar() {
                 </Badge>
               )}
             </Button>
-            <Link to="/profile">
-              <Button variant="ghost" size="icon">
+            <Button 
+              variant="ghost" 
+              size="icon" 
+              onClick={handleProfileClick}
+              className={cn(
+                "transition-all duration-200",
+                isActive("/profile") && isLoggedIn ? "bg-accent text-accent-foreground" : ""
+              )}
+            >
                 <User className="h-5 w-5" />
-              </Button>
-            </Link>
+            </Button>
             {isLoggedIn ? (
               <Button variant="outline" size="sm" onClick={logout}>
                 Logout
@@ -146,6 +159,20 @@ export default function Navbar() {
                   {item.label}
                 </Link>
               ))}
+              <button
+                onClick={() => {
+                  handleProfileClick()
+                  setIsMobileMenuOpen(false)
+                }}
+                className={cn(
+                  "block px-3 py-2 rounded-md text-base font-medium transition-all duration-200 text-left",
+                  isActive("/profile") && isLoggedIn
+                    ? "bg-primary text-primary-foreground"
+                    : "text-foreground hover:bg-accent hover:text-accent-foreground"
+                )}
+              >
+                Profile
+              </button>
               <div className="flex items-center space-x-3 px-3 py-2">
                 {isLoggedIn ? (
                   <Button variant="outline" size="sm" className="w-full" onClick={handleLogout}>

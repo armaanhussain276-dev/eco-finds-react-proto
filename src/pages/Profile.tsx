@@ -26,9 +26,9 @@ const Profile = () => {
     }
   });
 
-  // If not logged in, show guest mode (handled by NotFound component)
+  // If not logged in, redirect will be handled by the routing
   if (!isLoggedIn) {
-    return null; // This will be handled by the routing to show NotFound component
+    return null;
   }
 
   return (
