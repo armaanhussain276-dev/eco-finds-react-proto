@@ -2,7 +2,11 @@ import { useState } from "react"
 import { Link, useLocation } from "react-router-dom"
 import { Leaf, ShoppingCart, User, Menu, X } from "lucide-react"
 import { Button } from "@/components/ui/enhanced-button"
+import { Badge } from "@/components/ui/badge"
 import { cn } from "@/lib/utils"
+import { useAuth } from "@/contexts/AuthContext"
+import { useCart } from "@/contexts/CartContext"
+import MiniCart from "@/components/cart/MiniCart"
 
 const navItems = [
   { label: "Home", path: "/" },
@@ -16,8 +20,11 @@ const navItems = [
 
 export default function Navbar() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false)
+  const [isMiniCartOpen, setIsMiniCartOpen] = useState(false)
   const location = useLocation()
   const currentPath = location.pathname
+  const { isLoggedIn, login, logout } = useAuth()
+  const { getTotalItems } = useCart()
 
   const isActive = (path: string) => currentPath === path
 
@@ -55,19 +62,33 @@ export default function Navbar() {
 
           {/* Desktop Actions */}
           <div className="hidden md:flex items-center space-x-3">
-            <Link to="/cart">
-              <Button variant="ghost" size="icon">
-                <ShoppingCart className="h-5 w-5" />
-              </Button>
-            </Link>
+            <Button 
+              variant="ghost" 
+              size="icon" 
+              onClick={() => setIsMiniCartOpen(true)}
+              className="relative"
+            >
+              <ShoppingCart className="h-5 w-5" />
+              {getTotalItems() > 0 && (
+                <Badge className="absolute -top-2 -right-2 h-5 w-5 rounded-full p-0 flex items-center justify-center text-xs">
+                  {getTotalItems()}
+                </Badge>
+              )}
+            </Button>
             <Link to="/profile">
               <Button variant="ghost" size="icon">
                 <User className="h-5 w-5" />
               </Button>
             </Link>
-            <Button variant="outline" size="sm">
-              Logout
-            </Button>
+            {isLoggedIn ? (
+              <Button variant="outline" size="sm" onClick={logout}>
+                Logout
+              </Button>
+            ) : (
+              <Button variant="outline" size="sm" onClick={login}>
+                Login
+              </Button>
+            )}
           </div>
 
           {/* Mobile menu button */}
@@ -106,14 +127,22 @@ export default function Navbar() {
                 </Link>
               ))}
               <div className="flex items-center space-x-3 px-3 py-2">
-                <Button variant="outline" size="sm" className="w-full">
-                  Logout
-                </Button>
+                {isLoggedIn ? (
+                  <Button variant="outline" size="sm" className="w-full" onClick={logout}>
+                    Logout
+                  </Button>
+                ) : (
+                  <Button variant="outline" size="sm" className="w-full" onClick={login}>
+                    Login
+                  </Button>
+                )}
               </div>
             </div>
           </div>
         )}
       </div>
+      
+      <MiniCart isOpen={isMiniCartOpen} onClose={() => setIsMiniCartOpen(false)} />
     </nav>
   )
 }

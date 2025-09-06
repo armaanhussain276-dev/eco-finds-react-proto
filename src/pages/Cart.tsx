@@ -4,6 +4,7 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Trash2, ShoppingBag } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
 import { Link } from "react-router-dom";
+import { formatPrice } from "@/utils/priceFormatter";
 
 const Cart = () => {
   const { toast } = useToast();
@@ -14,7 +15,7 @@ const Cart = () => {
       id: 1,
       title: "Sustainable Cotton T-Shirt",
       description: "Organic cotton t-shirt in mint green",
-      price: 25.00,
+      price: 25,
       quantity: 2,
       image: "/placeholder.svg"
     },
@@ -22,7 +23,7 @@ const Cart = () => {
       id: 2,
       title: "Bamboo Water Bottle",
       description: "Eco-friendly bamboo water bottle with steel interior",
-      price: 35.00,
+      price: 35,
       quantity: 1,
       image: "/placeholder.svg"
     }
@@ -131,7 +132,7 @@ const Cart = () => {
                             </div>
                             <div className="flex items-center gap-3">
                               <span className="font-semibold text-eco-green">
-                                ${(item.price * item.quantity).toFixed(2)}
+                                {formatPrice(item.price * item.quantity)}
                               </span>
                               <Button
                                 size="sm"
@@ -159,16 +160,16 @@ const Cart = () => {
                   <CardContent className="space-y-4">
                     <div className="flex justify-between">
                       <span>Subtotal</span>
-                      <span>${subtotal.toFixed(2)}</span>
+                      <span>{formatPrice(subtotal)}</span>
                     </div>
                     <div className="flex justify-between">
                       <span>Tax</span>
-                      <span>${tax.toFixed(2)}</span>
+                      <span>{formatPrice(tax)}</span>
                     </div>
                     <div className="border-t pt-4">
                       <div className="flex justify-between font-semibold text-lg">
                         <span>Total</span>
-                        <span className="text-eco-green">${total.toFixed(2)}</span>
+                        <span className="text-eco-green">{formatPrice(total)}</span>
                       </div>
                     </div>
                     <Button 
